@@ -173,8 +173,72 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
                 "context" => []
             ]
         ];
-        $result = \RW\Validator::validate($data, $schema);
+
+        $validator = new \RW\Validator();
+        $result = $validator->validate($data, $schema);
+
         $this->assertSame(false, $result);
-        $this->assertEquals($expected, \RW\Validator::getResult());
+        $this->assertEquals($expected, $validator->getValidateResult());
+    }
+
+    /**
+     * Valid object
+     */
+    public function testSchemaValid()
+    {
+        $data = [
+            "formDataEmail" => "test@revenuewire.com",
+        ];
+
+        $schema = [
+            "key" => "formData",
+            "type" => \RW\Validator::TYPE_OBJECT,
+            "required" => true,
+            "options" => [],
+            "schema" => [
+                [
+                    "key" => "formDataEmail",
+                    "type" => \RW\Validator::TYPE_EMAIL,
+                    "required" => true,
+                    "options" => [],
+                ]
+            ]
+        ];
+
+        $expected = [];
+        $validator = new \RW\Validator();
+        $result = $validator->validate($data, $schema);
+
+        $this->assertSame(true, $result);
+        $this->assertEquals($expected, $validator->getValidateResult());
+    }
+
+    /**
+     * Valid array
+     */
+    public function testSchemaValidArray()
+    {
+        $data = [
+            "test1", "test2"
+        ];
+
+        $schema = [
+            "key" => "formData",
+            "type" => \RW\Validator::TYPE_ARRAY,
+            "required" => true,
+            "options" => [],
+            "schema" => [
+                "type" => \RW\Validator::TYPE_STRING,
+                "required" => true,
+                "options" => []
+            ]
+        ];
+
+        $expected = [];
+        $validator = new \RW\Validator();
+        $result = $validator->validate($data, $schema);
+
+        $this->assertSame(true, $result);
+        $this->assertEquals($expected, $validator->getValidateResult());
     }
 }

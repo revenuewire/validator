@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "RW\\Validator\\": "src/"
+      "RW\\": "src/"
     }
   },
   "require-dev": {
