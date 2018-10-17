@@ -14,9 +14,14 @@ composer require revenuewire/validator
 
 ### Simple Example
 ```php
-//example 
+//example of testing my age
 $validator = new \RW\Validator();
 $result = $validator->validateAge(20, "myAge", ["min" => 18, "max" => 99]);
+var_dump($result); //true
+
+//same validator, but using birthday
+$validator = new \RW\Validator();
+$result = $validator->validateAge("1987-01-08", "myAge", ["min" => 18, "max" => 99]);
 var_dump($result); //true
 
 $validator = new \RW\Validator();
