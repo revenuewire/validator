@@ -1,15 +1,10 @@
 version: "2"
 services:
-  api:
+  unittest:
     image: revenuewire/validator:latest
     build:
       context: .
       dockerfile: docker/Dockerfile
-    volumes:
-      - $PWD:/var/src
-
-  unittest:
-    image: revenuewire/validator:latest
     volumes:
         - $PWD:/var/src
     working_dir: /var/src/
