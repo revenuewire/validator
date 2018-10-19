@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: swang
- * Date: 2018-10-17
- * Time: 3:25 PM
- */
+declare(strict_types=1);
 
 namespace RW\Validators;
 
@@ -36,6 +31,11 @@ trait IntegerValidator
 
         if (isset($options['min']) && $data < $options['min']) {
             $this->addValidateResult($key, sprintf("%s must be greater than %s.", $key, $options['min']), $options);
+            return false;
+        }
+
+        if (isset($options['allowedValues']) && !in_array($data, $options['allowedValues'])) {
+            $this->addValidateResult($key, sprintf("%s is not allowed value for %s.", $data, $key), $options);
             return false;
         }
 

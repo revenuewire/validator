@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: swang
- * Date: 2018-10-17
- * Time: 3:26 PM
- */
+declare(strict_types=1);
 
 namespace RW\Validators;
 

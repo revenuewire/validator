@@ -39,3 +39,15 @@ var_dump($result); //false
 */
 var_dump($validator->getValidateResult());
 ```
+
+## Options
+| Options |  Comments  |
+|---|---|
+| max | If it is string validation, use strlen(). |
+| min | If it is string validation, use strlen(). |
+| allowedValues | An array of items allowed for a given data |
+| validExceptions | An array of characters that always consider valid regardless the type check. For examples, if the validException is set to be ["_", "-"], and combine with alnum, you will have validate against alpha-numeric with exception of underscore and dash |
+| alnum | Only alpha-numeric are valid. |
+| alpha | Only alphabets are valid. |
+| upper | Only upper case alphabets are valid. |
+| lower | Only lower case alphabets are valid. |

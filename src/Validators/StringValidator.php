@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace RW\Validators;
 
 /**
@@ -17,6 +19,14 @@ trait StringValidator
      */
     public function validateString($data, $key, array $options = [])
     {
+        if (!is_string($data)) {
+            $this->addValidateResult($key, sprintf("%s must be a string.", $key), $options);
+            return false;
+        }
+
+        $aValid = $options['validExceptions'] ?? [];
+        $data = str_replace($aValid, '', $data);
+
         if (isset($options['max']) && mb_strlen($data) > $options['max']) {
             $this->addValidateResult($key, sprintf("%s must be less than %s characters.", $key, $options['max']), $options);
             return false;
@@ -29,6 +39,26 @@ trait StringValidator
 
         if (isset($options['allowedValues']) && !in_array($data, $options['allowedValues'])) {
             $this->addValidateResult($key, sprintf("%s is not allowed value for %s.", $data, $key), $options);
+            return false;
+        }
+
+        if (isset($options['alnum']) && !ctype_alnum($data)) {
+            $this->addValidateResult($key, sprintf("%s is not allowed value for %s.", $data, $key), $options);
+            return false;
+        }
+
+        if (isset($options['alpha']) && !ctype_alpha($data)) {
+            $this->addValidateResult($key, sprintf("%s is not allowed value for %s.", $data, $key), $options);
+            return false;
+        }
+
+        if (isset($options['upper']) && !ctype_upper($data)) {
+            $this->addValidateResult($key, sprintf("%s must be all upper case.", $data, $key), $options);
+            return false;
+        }
+
+        if (isset($options['lower']) && !ctype_lower($data)) {
+            $this->addValidateResult($key, sprintf("%s must be all lower case.", $data, $key), $options);
             return false;
         }
 
