@@ -43,12 +43,12 @@ class Validator
         $required = $schema['required'] ?? true;
         $key = $schema['key'] ?? "";
 
-        if ($required === true && empty($data)) {
+        if ($required === true && !isset($data)) {
             $this->addValidateResult($key, "Required value missing");
             return false;
         }
 
-        if ($required === false && empty($data)) {
+        if ($required === false && !isset($data)) {
             return true;
         }
 

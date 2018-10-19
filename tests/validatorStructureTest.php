@@ -34,10 +34,11 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
                     ],
                     [
                         "k" => "k2",
-                        "v" => "",
+                        "v" => null,
                     ]
                 ]
-            ]
+            ],
+            "formDataNotRequired" => null,
         ];
 
         $schema = [
@@ -46,6 +47,12 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
             "required" => true,
             "options" => [],
             "schema" => [
+                [
+                    "key" => "formDataNotRequired",
+                    "type" => \RW\Validator::TYPE_STRING,
+                    "required" => false,
+                    "options" => [],
+                ],
                 [
                     "key" => "formDataEmail",
                     "type" => \RW\Validator::TYPE_EMAIL,
@@ -240,5 +247,8 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame(true, $result);
         $this->assertEquals($expected, $validator->getValidateResult());
+
+        $validator->clearValidateResult();
+        $this->assertEquals([], $validator->getValidateResult());
     }
 }
