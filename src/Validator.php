@@ -3,8 +3,6 @@ namespace RW;
 
 use RW\Validators\AgeValidator;
 use RW\Validators\EmailValidator;
-use RW\Validators\IntegerValidator;
-use RW\Validators\StringValidator;
 
 class Validator
 {
