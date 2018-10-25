@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace RW\Validators;
 
 /**
- * Trait IntegerValidator
+ * Trait FloatValidator
  * @package RW\Validators
  */
-trait IntegerValidator
+trait FloatValidator
 {
     /**
      * ageValidator
@@ -17,10 +17,10 @@ trait IntegerValidator
      * @param array $options
      * @return bool
      */
-    public function validateInteger($data, $key, array $options = [])
+    public function validateFloat($data, $key, array $options = [])
     {
-        if (!is_int($data)) {
-            $this->addValidateResult($key, sprintf("%s must be int.", $key), $options);
+        if (!is_float($data)) {
+            $this->addValidateResult($key, sprintf("%s must be float.", $key), $options);
             return false;
         }
 
