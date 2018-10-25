@@ -13,7 +13,7 @@ class Validator
     const TYPE_ARRAY = "array";
     const TYPE_OBJECT = "object";
     const TYPE_INTEGER = "int";
-    const TYPE_FLOAT = "float";
+    const TYPE_NUMERIC = "float";
 
     const TYPE_EMAIL = "email";
     const TYPE_AGE = "age";
@@ -23,7 +23,7 @@ class Validator
         self::TYPE_EMAIL => "validateEmail",
         self::TYPE_STRING => "validateString",
         self::TYPE_INTEGER => "validateInteger",
-        self::TYPE_FLOAT => "validateNumeric",
+        self::TYPE_NUMERIC => "validateNumeric",
     ];
 
     public $validateResults = [];
