@@ -3,11 +3,11 @@ namespace RW;
 
 use RW\Validators\AgeValidator;
 use RW\Validators\EmailValidator;
-use RW\Validators\FloatValidator;
+use RW\Validators\NumericValidator;
 
 class Validator
 {
-    use AgeValidator, EmailValidator, FloatValidator;
+    use AgeValidator, EmailValidator, NumericValidator;
 
     const TYPE_STRING = "string";
     const TYPE_ARRAY = "array";
@@ -23,7 +23,7 @@ class Validator
         self::TYPE_EMAIL => "validateEmail",
         self::TYPE_STRING => "validateString",
         self::TYPE_INTEGER => "validateInteger",
-        self::TYPE_FLOAT => "validateFloat",
+        self::TYPE_FLOAT => "validateNumeric",
     ];
 
     public $validateResults = [];

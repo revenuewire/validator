@@ -19,8 +19,13 @@ trait IntegerValidator
      */
     public function validateInteger($data, $key, array $options = [])
     {
+        if (!is_numeric($data)) {
+            $this->addValidateResult($key, sprintf("%s must be a number.", $key), $options);
+            return false;
+        }
+        $data = $data + 0;
         if (!is_int($data)) {
-            $this->addValidateResult($key, sprintf("%s must be int.", $key), $options);
+            $this->addValidateResult($key, sprintf("%s must be an integer.", $key), $options);
             return false;
         }
 

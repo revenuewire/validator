@@ -7,29 +7,31 @@ namespace RW\Validators;
  * Trait FloatValidator
  * @package RW\Validators
  */
-trait FloatValidator
+trait NumericValidator
 {
     /**
-     * ageValidator
+     * validateNumeric
      *
      * @param $data
      * @param $key
      * @param array $options
      * @return bool
      */
-    public function validateFloat($data, $key, array $options = [])
+    public function validateNumeric($data, $key, array $options = [])
     {
-        if (!is_float($data)) {
-            $this->addValidateResult($key, sprintf("%s must be float.", $key), $options);
+        if (!is_numeric($data)) {
+            $this->addValidateResult($key, sprintf("%s must be a number.", $key), $options);
             return false;
         }
 
-        if (isset($options['max']) && $data > $options['max']) {
+        $scale = $options['scale'] ?? 2;
+
+        if (isset($options['max']) && bccomp((string) $data, (string) $options['max'], $scale) === 1) {
             $this->addValidateResult($key, sprintf("%s must be less than %s.", $key, $options['max']), $options);
             return false;
         }
 
-        if (isset($options['min']) && $data < $options['min']) {
+        if (isset($options['min']) && bccomp((string) $data, (string) $options['min'], $scale) === -1) {
             $this->addValidateResult($key, sprintf("%s must be greater than %s.", $key, $options['min']), $options);
             return false;
         }

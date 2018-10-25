@@ -3,16 +3,16 @@
 /**
  * Class validateFloatTest
  */
-class validateFloatTest extends \PHPUnit\Framework\TestCase
+class validateNumericTest extends \PHPUnit\Framework\TestCase
 {
     public function dataProvider()
     {
         return [
-            [ 123, [], false ],
+            [ 123, [], true ],
             [ 12.3, [], true ],
             [ "abc", [], false ],
-            [ "12", [], false ],
-            [ "12.32", [], false ],
+            [ "12", [], true ],
+            [ "12.32", [], true ],
             [ 12.00, ["min" => 13.21], false ],
             [ 12.23, ["min" => 11.78], true ],
             [ 11.01, ["min" => 11, "max" => 15], true ],
@@ -31,9 +31,9 @@ class validateFloatTest extends \PHPUnit\Framework\TestCase
      * @param $expected
      * @dataProvider dataProvider
      */
-    public function testFloat($input, $options, $expected)
+    public function testNumeric($input, $options, $expected)
     {
         $validator = new \RW\Validator();
-        $this->assertSame($expected, $validator->validateFloat($input, "test-float", $options));
+        $this->assertSame($expected, $validator->validateNumeric($input, "test-float", $options));
     }
 }
