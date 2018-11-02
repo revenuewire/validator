@@ -122,12 +122,17 @@ class Validator
      */
     public function validate($data)
     {
-        if ($this->options[self::OPTION_EXCEPTION_ON_UNDEFINED_DATA] === true) {
+        if (!empty($this->dataStructure)) {
             $diff = self::arrayDiffKeyRecursive($data, $this->dataStructure);
             if (!empty($diff)) {
-                throw new \Exception("Undefined data found. (" . var_export($diff) . ")");
+                if ($this->options[self::OPTION_EXCEPTION_ON_UNDEFINED_DATA] === true) {
+                    throw new \Exception("Undefined data found. (" . json_encode($diff) . ")");
+                } else {
+                    $this->addValidateResult($this->schema['key'], "Undefined data found", $diff);
+                }
             }
         }
+
         return $this->validating($data, $this->schema);
     }
 
