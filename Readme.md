@@ -51,3 +51,6 @@ var_dump($validator->getValidateResult());
 | alpha | Only alphabets are valid. |
 | upper | Only upper case alphabets are valid. |
 | lower | Only lower case alphabets are valid. |
+| dateFormat | check the date format to match  |
+| countryFormat | [ alpha2, alpha3, numeric ] check the country data with alpha2 (default for country validation)  |
+ 

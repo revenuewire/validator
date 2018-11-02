@@ -35,10 +35,12 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
                     [
                         "k" => "k2",
                         "v" => null,
+                        "extra" => "not defined"
                     ]
                 ]
             ],
             "formDataNotRequired" => null,
+            "extra" => "not defined"
         ];
 
         $schema = [
