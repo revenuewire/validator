@@ -8,14 +8,15 @@ class validateAgeTest extends \PHPUnit\Framework\TestCase
     public function dataProvider()
     {
         return [
-            [ "abc", false ],
-            [ "1983-01-02", true ],
-            [ "01/02/83", true ],
-            [ 32, true ],
-            [ 16, false ],
-            [ 18, true ],
-            [ 100, false ],
-            [ 99, true ],
+            [ "abc", ["min" => 18, "max" => 99], false ],
+            [ "1983-01-02", ["min" => 18, "max" => 99], true ],
+            [ "01/02/83",["min" => 18, "max" => 99],  true ],
+            [ 32, ["min" => 18, "max" => 99], true ],
+            [ 16, ["min" => 18, "max" => 99], false ],
+            [ 18, ["min" => 18, "max" => 99], true ],
+            [ 100, ["min" => 18, "max" => 99], false ],
+            [ 99, ["min" => 18, "max" => 99], true ],
+            [ "1983-01-02", ["min" => 18, "max" => 99, "dateFormat" => "Ymd"], false ],
         ];
     }
 
@@ -24,9 +25,9 @@ class validateAgeTest extends \PHPUnit\Framework\TestCase
      * @param $expected
      * @dataProvider dataProvider
      */
-    public function testAge($input, $expected)
+    public function testAge($input, $options, $expected)
     {
         $validator = new \RW\Validator();
-        $this->assertSame($expected, $validator->validateAge($input, "", ["min" => 18, "max" => 99]));
+        $this->assertSame($expected, $validator->validateAge($input, "validate-age", $options));
     }
 }

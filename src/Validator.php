@@ -2,18 +2,20 @@
 namespace RW;
 
 use RW\Validators\AgeValidator;
+use RW\Validators\DateTimeValidator;
 use RW\Validators\EmailValidator;
 use RW\Validators\NumericValidator;
 
 class Validator
 {
-    use AgeValidator, EmailValidator, NumericValidator;
+    use AgeValidator, EmailValidator, NumericValidator, DateTimeValidator;
 
     const TYPE_STRING = "string";
     const TYPE_ARRAY = "array";
     const TYPE_OBJECT = "object";
     const TYPE_INTEGER = "int";
     const TYPE_NUMERIC = "float";
+    const TYPE_DATETIME = "datetime";
 
     const TYPE_EMAIL = "email";
     const TYPE_AGE = "age";
@@ -24,6 +26,7 @@ class Validator
         self::TYPE_STRING => "validateString",
         self::TYPE_INTEGER => "validateInteger",
         self::TYPE_NUMERIC => "validateNumeric",
+        self::TYPE_DATETIME => "validateDatetime",
     ];
 
     public $validateResults = [];

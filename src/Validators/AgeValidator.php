@@ -19,9 +19,17 @@ trait AgeValidator
      */
     public function validateAge($data, $key, array $options = [])
     {
-        if (!is_int($data) && strtotime($data) !== false) {
+        $timestamp = strtotime((string) $data);
+        if (!is_int($data) && $timestamp !== false) {
+            if (isset($options['dateFormat'])) {
+                if ($data != date($options['dateFormat'], $timestamp)) {
+                    $this->addValidateResult($key, sprintf("%s is an invalid datetime format.", $key, $data), $options);
+                    return false;
+                }
+            }
+
             $birthday = new \DateTime();
-            $birthday->setTimestamp(strtotime($data));
+            $birthday->setTimestamp($timestamp);
             $now = new \DateTime();
             $data = (int) $now->diff($birthday)->format("%y");
         }
