@@ -35,12 +35,10 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
                     [
                         "k" => "k2",
                         "v" => null,
-                        "extra" => "not defined"
                     ]
                 ]
             ],
             "formDataNotRequired" => null,
-            "extra" => "not defined"
         ];
 
         $schema = [
@@ -183,8 +181,8 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
             ]
         ];
 
-        $validator = new \RW\Validator();
-        $result = $validator->validate($data, $schema);
+        $validator = new \RW\Validator($schema, [\RW\Validator::OPTION_EXCEPTION_ON_UNDEFINED_DATA => true]);
+        $result = $validator->validate($data);
 
         $this->assertSame(false, $result);
         $this->assertEquals($expected, $validator->getValidateResult());
@@ -215,8 +213,8 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
         ];
 
         $expected = [];
-        $validator = new \RW\Validator();
-        $result = $validator->validate($data, $schema);
+        $validator = new \RW\Validator($schema);
+        $result = $validator->validate($data);
 
         $this->assertSame(true, $result);
         $this->assertEquals($expected, $validator->getValidateResult());
@@ -244,8 +242,8 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
         ];
 
         $expected = [];
-        $validator = new \RW\Validator();
-        $result = $validator->validate($data, $schema);
+        $validator = new \RW\Validator($schema);
+        $result = $validator->validate($data);
 
         $this->assertSame(true, $result);
         $this->assertEquals($expected, $validator->getValidateResult());
