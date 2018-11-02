@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace RW\Validators;
 
 /**
- * Trait EmailValidator
+ * Trait URLValidator
  * @package RW\Validators
  */
-trait EmailValidator
+trait URLValidator
 {
     /**
      * @param $data
@@ -15,14 +15,14 @@ trait EmailValidator
      * @param array $options
      * @return bool
      */
-    public function validateEmail($data, $key, array $options = [])
+    public function validateURL($data, $key, array $options = [])
     {
         if (!$this->validateString($data, $key, $options)) {
             return false;
         }
 
-        if (!filter_var($data, FILTER_VALIDATE_EMAIL)) {
-            $this->addValidateResult($key,"Invalid email format", $options);
+        if (!filter_var($data, FILTER_VALIDATE_URL)) {
+            $this->addValidateResult($key,"Invalid URL format", $options);
             return false;
         }
 

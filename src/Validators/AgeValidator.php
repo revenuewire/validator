@@ -9,8 +9,6 @@ namespace RW\Validators;
  */
 trait AgeValidator
 {
-    use IntegerValidator;
-
     /**
      * @param $data
      * @param $key
