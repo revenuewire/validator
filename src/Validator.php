@@ -173,7 +173,7 @@ class Validator
             }
         } else {
             $v = Validator::VALIDATORS[$type];
-            return $this->$v($data, $key, $schema['options']);
+            return $this->$v($data, $key, $schema['options'] ?? []);
         }
 
         return (count($this->getValidateResult()) <= 0);
