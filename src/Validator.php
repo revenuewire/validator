@@ -276,8 +276,23 @@ class Validator
      */
     public function validateMixed($data, $key, array $options = [])
     {
-        $data = (string) $data;
-        return $this->validateString($data, $key, $options);
+        if (is_bool($data)) {
+            return true;
+        }
+
+        if (is_string($data)) {
+            return $this->validateString($data, $key, $options);
+        }
+
+        if (is_integer($data)) {
+            return $this->validateInteger($data, $key, $options);
+        }
+
+        if (is_numeric($data)) {
+            return $this->validateNumeric($data, $key, $options);
+        }
+
+        return true;
     }
 
     /**

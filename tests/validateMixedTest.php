@@ -12,6 +12,10 @@ class validateMixedTest extends \PHPUnit\Framework\TestCase
             [ "1983-01-02", [], true ],
             [ "中文", [], true ],
             [ 123, [], true ],
+            [ 123.36, [], true ],
+            ["123.36", [], true ],
+            [ true, [], true ],
+            [ false, [], true ], //data type has no error
             [ "a", ["min" => 2], false ],
             [ "abc", ["max" => 2], false ],
             [ "abcd", ["min" => 1, "max" => 5], true ],
