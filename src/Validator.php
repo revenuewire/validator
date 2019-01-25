@@ -19,6 +19,7 @@ class Validator
     const TYPE_NUMERIC = "float";
     const TYPE_DATETIME = "datetime";
     const TYPE_URL = "url";
+    const TYPE_MIXED = "mixed";
 
     const TYPE_EMAIL = "email";
     const TYPE_AGE = "age";
@@ -33,6 +34,7 @@ class Validator
         self::TYPE_DATETIME => "validateDatetime",
         self::TYPE_COUNTRY => "validateCountry",
         self::TYPE_URL => "validateURL",
+        self::TYPE_MIXED => "validateMixed",
     ];
 
     public $validateResults = [];
@@ -264,6 +266,18 @@ class Validator
         }
 
         return true;
+    }
+
+    /**
+     * @param $data
+     * @param $key
+     * @param array $options
+     * @return bool
+     */
+    public function validateMixed($data, $key, array $options = [])
+    {
+        $data = (string) $data;
+        return $this->validateString($data, $key, $options);
     }
 
     /**
