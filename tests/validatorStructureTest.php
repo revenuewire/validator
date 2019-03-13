@@ -452,4 +452,91 @@ class validatorStructureTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(false, $result);
         $this->assertEquals($expected, $validator->getValidateResult());
     }
+
+    /**
+     * @throws Exception
+     */
+    public function testSchemaStructureWithSkipEmpty()
+    {
+        $data = [
+            //"formDataEmail" => "",
+            "formDataAge" => 28,
+        ];
+
+        $schema = [
+            "key" => "formData",
+            "type" => \RW\Validator::TYPE_OBJECT,
+            "required" => true,
+            "options" => [],
+            "schema" => [
+                [
+                    "key" => "formDataEmail",
+                    "type" => \RW\Validator::TYPE_EMAIL,
+                    "required" => true,
+                    "options" => [],
+                ],
+                [
+                    "key" => "formDataAge",
+                    "type" => \RW\Validator::TYPE_AGE,
+                    "required" => false,
+                    "options" => [
+                        "max" => 99,
+                        "min" => 18,
+                    ],
+                ]
+            ]
+        ];
+
+        $expected = [];
+
+        $validator = new \RW\Validator($schema, [\RW\Validator::OPTION_EXCEPTION_ON_UNDEFINED_DATA => true, RW\Validator::OPTION_SKIP_EMPTY_DATA => true]);
+        $result = $validator->validate($data);
+        $this->assertSame(true, $result);
+        $this->assertEquals($expected, $validator->getValidateResult());
+    }
+
+    public function testSchemaStructureWithoutSkipEmpty()
+    {
+        $data = [
+            //"formDataEmail" => "",
+            "formDataAge" => 28,
+        ];
+
+        $schema = [
+            "key" => "formData",
+            "type" => \RW\Validator::TYPE_OBJECT,
+            "required" => true,
+            "options" => [],
+            "schema" => [
+                [
+                    "key" => "formDataEmail",
+                    "type" => \RW\Validator::TYPE_EMAIL,
+                    "required" => true,
+                    "options" => [],
+                ],
+                [
+                    "key" => "formDataAge",
+                    "type" => \RW\Validator::TYPE_AGE,
+                    "required" => false,
+                    "options" => [
+                        "max" => 99,
+                        "min" => 18,
+                    ],
+                ]
+            ]
+        ];
+
+        $expected = [
+            [
+                "key" => "formData.formDataEmail",
+                "error" => "Required value missing",
+                "context" => []
+            ]
+        ];
+
+        $validator = new \RW\Validator($schema, [\RW\Validator::OPTION_EXCEPTION_ON_UNDEFINED_DATA => true]);
+        $result = $validator->validate($data);
+        $this->assertSame(false, $result);
+        $this->assertEquals($expected, $validator->getValidateResult());
+    }
 }

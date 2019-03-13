@@ -8,12 +8,12 @@ class validateURLTest extends \PHPUnit\Framework\TestCase
     public function dataProvider()
     {
         return [
-            [ "test@revenuewire.com", false ],
-            [ "google.com", false ],
+            [ "test@revenuewire.com", true ],
+            [ "google.com", true ],
             [ "", false ],
             [ 32, false ],
-            [ "aaa@aaa", false ],
-            [ "ht", false ],
+            [ "aaa@aaa", true ],
+            [ "ht", true ],
             [ "http://aa.com", true ],
             [ "http://aa.bb.com", true ],
             [ "https://aa.bb.com", true ],

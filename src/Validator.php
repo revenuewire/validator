@@ -44,9 +44,11 @@ class Validator
 
     const OPTION_EXCEPTION_ON_FIRST_ERROR = "OPTION_EXCEPTION_ON_FIRST_ERROR";
     const OPTION_EXCEPTION_ON_UNDEFINED_DATA = "OPTION_EXCEPTION_ON_UNDEFINED_DATA";
+    const OPTION_SKIP_EMPTY_DATA = "OPTION_SKIP_EMPTY_DATA";
     const DEFAULT_OPTIONS = [
         self::OPTION_EXCEPTION_ON_FIRST_ERROR => false,
         self::OPTION_EXCEPTION_ON_UNDEFINED_DATA => false,
+        self::OPTION_SKIP_EMPTY_DATA => false,
     ];
 
     /**
@@ -152,13 +154,13 @@ class Validator
         $required = $schema['required'] ?? true;
         $key = $schema['key'] ?? "";
 
+        if (($required === false || $this->options[self::OPTION_SKIP_EMPTY_DATA] === true) && !isset($data)) {
+            return true;
+        }
+
         if ($required === true && !isset($data)) {
             $this->addValidateResult($key, "Required value missing");
             return false;
-        }
-
-        if ($required === false && !isset($data)) {
-            return true;
         }
 
         if ($type == Validator::TYPE_OBJECT) {
