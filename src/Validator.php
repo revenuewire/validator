@@ -247,6 +247,11 @@ class Validator
             return false;
         }
 
+        if (isset($options['digit']) && !ctype_digit($data)) {
+            $this->addValidateResult($key, sprintf("%s is not allowed value for %s.", $data, $key), $options);
+            return false;
+        }
+
         if (isset($options['alnum']) && !ctype_alnum($data)) {
             $this->addValidateResult($key, sprintf("%s is not allowed value for %s.", $data, $key), $options);
             return false;

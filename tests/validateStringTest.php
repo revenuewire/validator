@@ -27,6 +27,9 @@ class validateStringTest extends \PHPUnit\Framework\TestCase
             [ "abc", [ "lower" => true ], true ],
             [ "aBc", [ "lower" => true ], false ],
             [ "aB1", [ "lower" => true ], false ],
+            [ "aB1", [ "digit" => true ], false ],
+            [ "1820.20", [ "digit" => true ], false ],
+            [ "1820", [ "digit" => true ], true ],
         ];
     }
 
