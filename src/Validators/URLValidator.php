@@ -21,10 +21,6 @@ trait URLValidator
             return false;
         }
 
-        if(stristr($data, 'http://') === FALSE && stristr($data, 'https://') === false) {
-            $data = "http://" . $data;
-        }
-
         if (!filter_var($data, FILTER_VALIDATE_URL)) {
             $this->addValidateResult($key,"Invalid URL format", $options);
             return false;
