@@ -17,11 +17,12 @@ trait URLValidator
      */
     public function validateURL($data, $key, array $options = [])
     {
+        $urlToValidate = !empty($options['addProtocol']) ? preg_match('/^http[s]?\:\/\//', $data) ? $data : 'http://' + $data : $data;
         if (!$this->validateString($data, $key, $options)) {
             return false;
         }
 
-        if (!filter_var($data, FILTER_VALIDATE_URL)) {
+        if (!filter_var($urlToValidate, FILTER_VALIDATE_URL)) {
             $this->addValidateResult($key,"Invalid URL format", $options);
             return false;
         }
