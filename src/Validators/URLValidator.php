@@ -17,7 +17,7 @@ trait URLValidator
      */
     public function validateURL($data, $key, array $options = [])
     {
-        $urlToValidate = !empty($options['addProtocol']) ? preg_match('/^http[s]?\:\/\//', $data) ? $data : 'http://' + $data : $data;
+        $urlToValidate = !empty($options['addProtocol']) ? preg_match('/^http[s]?\:\/\//', $data) ? $data : 'http://' . $data : $data;
         if (!$this->validateString($data, $key, $options)) {
             return false;
         }
