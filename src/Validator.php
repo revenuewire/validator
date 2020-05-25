@@ -20,6 +20,7 @@ class Validator
     const TYPE_DATETIME = "datetime";
     const TYPE_URL = "url";
     const TYPE_MIXED = "mixed";
+    const TYPE_BOOLEAN = "boolean";
 
     const TYPE_EMAIL = "email";
     const TYPE_AGE = "age";
@@ -35,6 +36,7 @@ class Validator
         self::TYPE_COUNTRY => "validateCountry",
         self::TYPE_URL => "validateURL",
         self::TYPE_MIXED => "validateMixed",
+        self::TYPE_BOOLEAN => "validateBoolean",
     ];
 
     public $validateResults = [];
@@ -299,6 +301,10 @@ class Validator
             return $this->validateNumeric($data, $key, $options);
         }
 
+        if (is_bool($data)) {
+            return $this->validateBoolean($data, $key, $options);
+        }
+
         return true;
     }
 
@@ -332,6 +338,22 @@ class Validator
 
         if (isset($options['allowedValues']) && !in_array($data, $options['allowedValues'])) {
             $this->addValidateResult($key, sprintf("%s is not allowed value for %s.", $data, $key), $options);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param $data
+     * @param $key
+     * @param array $options
+     * @return bool
+     */
+    public function validateBoolean($data, $key, array $options = [])
+    {
+        if (!is_bool($data)) {
+            $this->addValidateResult($key, sprintf("%s must be a boolean.", $key), $options);
             return false;
         }
 
