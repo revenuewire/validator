@@ -7,10 +7,11 @@ use RW\Validators\DateTimeValidator;
 use RW\Validators\EmailValidator;
 use RW\Validators\NumericValidator;
 use RW\Validators\URLValidator;
+use RW\Validators\CurrencyValidator;
 
 class Validator
 {
-    use AgeValidator, EmailValidator, NumericValidator, DateTimeValidator, CountryValidator, URLValidator;
+    use AgeValidator, EmailValidator, NumericValidator, DateTimeValidator, CountryValidator, URLValidator, CurrencyValidator;
 
     const TYPE_STRING = "string";
     const TYPE_ARRAY = "array";
@@ -21,6 +22,7 @@ class Validator
     const TYPE_URL = "url";
     const TYPE_MIXED = "mixed";
     const TYPE_BOOLEAN = "boolean";
+    const TYPE_CURRENCY = "currency";
 
     const TYPE_EMAIL = "email";
     const TYPE_AGE = "age";
@@ -37,6 +39,7 @@ class Validator
         self::TYPE_URL => "validateURL",
         self::TYPE_MIXED => "validateMixed",
         self::TYPE_BOOLEAN => "validateBoolean",
+        self::TYPE_CURRENCY => "validateCurrency",
     ];
 
     public $validateResults = [];
